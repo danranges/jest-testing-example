@@ -1,7 +1,7 @@
 // App.test.js
 
 import React from 'react';
-import { render, screen } from '@testing-library/react';
+import { render, screen, waitFor } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import App from './App';
 
@@ -16,8 +16,10 @@ describe('App component', () => {
     render(<App />);
     const button = screen.getByRole('button', { name: 'Click Me' });
 
-    await userEvent.click(button);
+    userEvent.click(button);
 
-    expect(screen.getByRole('heading').textContent).toMatch(/radical rhinos/i);
+    await waitFor(() =>
+      expect(screen.getByRole('heading').textContent).toMatch(/radical rhinos/i)
+    );
   });
 });
